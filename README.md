@@ -27,7 +27,7 @@ In today's globalized world, media coverage significantly influences public perc
 
 ## System Architecture
 
-![System Model](image.png)
+![System Model](system_model.png)
 
 ## Tools and Technologies
 
@@ -134,8 +134,8 @@ The project aims to provide insights into how India is portrayed in Western medi
 ### Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/sentiment-analysis-western-media-india.git
-   cd sentiment-analysis-western-media-india
+   git clone https://github.com/aryamanpathak2022/Sentimental_analysis_wn.git
+   cd Sentimental_analysis_wn
    ```
 2. Install the required packages:
    ```sh
