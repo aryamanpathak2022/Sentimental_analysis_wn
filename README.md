@@ -6,11 +6,13 @@
 3. [System Architecture](#system-architecture)
 4. [Tools and Technologies](#tools-and-technologies)
 5. [Dataset Description](#dataset-description)
-6. [Analysis Approach](#analysis-approach)
-7. [Expected Outcomes](#expected-outcomes)
-8. [Installation and Usage](#installation-and-usage)
-9. [Contributing](#contributing)
-10. [License](#license)
+6. [Data Format](#data-format)
+7. [Data Processing](#data-processing)
+8. [Analysis Approach](#analysis-approach)
+9. [Expected Outcomes](#expected-outcomes)
+10. [Installation and Usage](#installation-and-usage)
+11. [Contributing](#contributing)
+12. [License](#license)
 
 ## Project Overview
 
@@ -101,6 +103,41 @@ In today's globalized world, media coverage significantly influences public perc
   - URL
 - **Collection Method**:
   - APIs
+
+## Data Format
+
+### News Articles
+| Field            | Data Type | Description                                    |
+|------------------|-----------|------------------------------------------------|
+| News Agency Name | String    | Name of the news agency (e.g., BBC, CNN)       |
+| Title            | String    | Title of the news article                      |
+| Date             | Date      | Date of publication (format: YYYY-MM-DD)       |
+| Author           | String    | Author of the article                          |
+| Source           | String    | URL or source reference                        |
+| Full Text        | Text      | Full text of the news article                  |
+| URL              | String    | Web address of the article                     |
+| Metadata         | JSON      | Additional metadata related to the article     |
+
+### Social Media Posts
+| Field            | Data Type | Description                                    |
+|------------------|-----------|------------------------------------------------|
+| Post Content     | Text      | Content of the social media post               |
+| Username         | String    | Username of the poster                         |
+| Timestamp        | DateTime  | Date and time of the post (format: YYYY-MM-DD HH:MM:SS) |
+| Platform         | String    | Social media platform (e.g., Twitter, Facebook)|
+| Engagement Metrics | JSON   | Metrics like likes, shares, comments           |
+| Location         | String    | Location of the user (if available)            |
+| URL              | String    | Web address of the post                        |
+
+## Data Processing
+
+1. **Collection**: Using web scraping and APIs to gather data from specified sources.
+2. **Cleaning**: Removing duplicates, irrelevant information, and handling missing values.
+3. **Text Preprocessing**:
+   - Tokenization
+   - Stopwords Removal
+   - Lemmatization/Stemming
+   - Normalization
 
 ## Analysis Approach
 
