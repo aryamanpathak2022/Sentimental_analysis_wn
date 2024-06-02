@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import csv
 
 def fetch_bbc_headlines(pages=5):
     headline=[]
@@ -56,9 +57,18 @@ def fetch_bbc_headlines(pages=5):
     return (headline,date)
 
 if __name__ == "__main__":
-    headline,date = fetch_bbc_headlines(pages=1)
+    headline,date = fetch_bbc_headlines(pages=3)
     # print first headline than corresponding date in loop
     for i in range(len(headline)):
         print(headline[i], date[i])
     
-    
+    with open('headlines.csv', 'w', newline='') as csvfile:
+        fieldnames = ['Company_name','Headline', 'Date']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        # Write the header
+        writer.writeheader()
+        
+        # Write each headline and date as a row in the CSV file
+        for i in range(len(headline)):
+            writer.writerow({'Company_name':"BBC",'Headline': headline[i], 'Date': date[i]})
