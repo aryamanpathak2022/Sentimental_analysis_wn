@@ -16,6 +16,7 @@ def preprocess_text(text):
     
     # Remove all characters other than alphabets
     text = re.sub('[^a-z\s]', '', text)
+    print(text)
     
     # Tokenization
     words = nltk.word_tokenize(text)
