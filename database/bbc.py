@@ -7,8 +7,8 @@ import time
 import csv
 
 def fetch_bbc_headlines(pages=5):
-    headline=[]
-    date=[]
+    headlines = []
+    dates = []
     articles = []
     links = []
 
@@ -21,12 +21,17 @@ def fetch_bbc_headlines(pages=5):
         driver.get(url)
         time.sleep(3)  # Wait for the page to load (you can adjust the sleep time)
         
-        next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-next-button']")
-        next_page_button.click()
-        time.sleep(10) 
-        next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-back-button']")
-        next_page_button.click()
-        time.sleep(10) 
+        # Optional navigation for pagination
+        try:
+            next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-next-button']")
+            next_page_button.click()
+            time.sleep(10)
+            next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-back-button']")
+            next_page_button.click()
+            time.sleep(10)
+        except:
+            pass  # If pagination buttons are not found, continue without them
+
         for page in range(pages):
             # Use WebDriverWait to wait until the news items are loaded
             WebDriverWait(driver, 10).until(
@@ -34,48 +39,69 @@ def fetch_bbc_headlines(pages=5):
             )
             
             soup = BeautifulSoup(driver.page_source, 'html.parser')
-            # Extract headlines
-            # print(soup.find_all('h2', class_='sc-2c72d884-3 fWWpXO'))
-
-            for article in soup.find_all('h2', class_='sc-2c72d884-3 fWWpXO'):
-                headline.append(article.text.strip())
-            # print(soup.find_all('span', class_='sc-df20d569-1 fbRULV'))
-            for dates in soup.find_all('span', class_='sc-df20d569-1 fbRULV'):
-                
-                if dates:
-                    date.append( dates.get_text(strip=True))
-            for link_element in soup.find_all('a', class_='sc-2e6baa30-0 gILusN', href=True):
-                link = "https://www.bbc.com" + link_element['href']
-                links.append(link)
-            print(links)
-    
-            # Append base URL to the links
-            base_url = "https://www.bbc.com"
-            full_links = [base_url + link for link in links]
-            # for item in soup.find_all('div', class_='sc-da05643e-0 kbaPPZ'):
-            #     if item:
-            #         headlines.append(item.text.strip())
             
-            # Click on the next page button
-            next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-next-button']")
-            next_page_button.click()
-            time.sleep(15)  # Wait for the new page to load # Wait for the new page to load
+            # Extract headlines
+            for article in soup.find_all('h2', class_='sc-2c72d884-3 fWWpXO'):
+                headlines.append(article.text.strip())
+                
+            for date_element in soup.find_all('span', class_='sc-df20d569-1 fbRULV'):
+                dates.append(date_element.text.strip())
+                
+            for link_element in soup.find_all('a', class_='sc-5e33cc43-0 jZSdZm', href=True):
+                link = "https://www.bbc.com" + link_element['href']
+                print(link_element['href'])
+
+                links.append(link)
+
+            # Navigate to the next page if there is one
+            try:
+                next_page_button = driver.find_element(By.CSS_SELECTOR, "button[data-testid='pagination-next-button']")
+                next_page_button.click()
+                time.sleep(15)  # Wait for the new page to load
+            except:
+                break  # Exit the loop if there are no more pages
+
+    finally:
+        driver.quit()
+    
+    # Scrape full articles
+    for link in links:
+        print(link)
+        articles.append(scrape_article(link))
+    
+    return headlines, dates, links, articles
+
+def scrape_article(url):
+    # Set up the Chrome webdriver
+    driver = webdriver.Chrome()
+    
+    try:
+        # Navigate to the article URL
+        driver.get(url)
+        
+        # Parse the HTML content
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        
+        # Extract the article text
+        paragraphs = soup.find_all('p', class_='sc-eb7bd5f6-0 fYAfXe')
+        article_text = " ".join([para.text.strip() for para in paragraphs])
+        print(article_text)
         
     finally:
         driver.quit()
-        
-
-    return (headline,date,full_links)
-
-if __name__ == "__main__":
-    headline,date,link = fetch_bbc_headlines(pages=1)
-    # print first headline than corresponding date in loop
-    for i in range(len(headline)):
-        print(headline[i], date[i])
     
+    return article_text
+
+def save_to_csv(headlines, dates, links, articles):
     with open('headlines.csv', 'a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-      
-        for headlines, dates, links in zip(headline, date, link):
-            print("Appending headline:", headline)
-            writer.writerow(['bbc', headlines, dates, links])
+        for headline, date, link, article in zip(headlines, dates, links, articles):
+            writer.writerow(['bbc', headline, date, link, article])
+
+if __name__ == "__main__":
+    headlines, dates, links, articles = fetch_bbc_headlines(pages=1)
+    save_to_csv(headlines, dates, links, articles)
+    
+    # Print the results for verification
+    for i in range(len(headlines)):
+        print(f"Headline: {headlines[i]}, Date: {dates[i]}, Link: {links[i]}, Article: {articles[i][:100]}...")
