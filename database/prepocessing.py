@@ -16,7 +16,6 @@ def preprocess_text(text):
     
     # Remove all characters other than alphabets
     text = re.sub('[^a-z\s]', '', text)
-    print(text)
     
     # Tokenization
     words = nltk.word_tokenize(text)
@@ -36,17 +35,17 @@ def preprocess_headlines(input_file, output_file):
     # Load the dataset
     df = pd.read_csv(input_file)
     
-    # Remove rows with null values
-    df.dropna(inplace=True)
+    # Remove rows with null or empty headlines
+    df = df[df['Article'].notna() & df['Article'].str.strip().astype(bool)]
     
-    # Preprocess each headline
-    df['Processed_Headline'] = df['Headline'].apply(preprocess_text)
+    # Preprocess each Article
+    df['Processed_Article'] = df['Article'].apply(preprocess_text)
     
-    # Save the processed headlines to a new CSV file
+    # Save the processed Articles to a new CSV file
     df.to_csv(output_file, index=False)
 
 if __name__ == "__main__":
     input_file = 'headlines.csv'  # Input CSV file
-    output_file = 'processed_headlines.csv'  # Output CSV file
+    output_file = 'processed_Articles.csv'  # Output CSV file
     preprocess_headlines(input_file, output_file)
     print(f"Preprocessed data saved to {output_file}")
