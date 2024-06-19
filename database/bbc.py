@@ -44,7 +44,7 @@ def fetch_bbc_headlines(pages=5):
             for article in soup.find_all('h2', class_='sc-2c72d884-3 fWWpXO'):
                 headlines.append(article.text.strip())
                 
-            for date_element in soup.find_all('span', class_='sc-df20d569-1 fbRULV'):
+            for date_element in soup.find_all('span', class_='sc-57299aa3-1 hwGkGU'):
                 dates.append(date_element.text.strip())
                 
             for link_element in soup.find_all('a', class_='sc-5e33cc43-0 jZSdZm', href=True):
@@ -65,9 +65,15 @@ def fetch_bbc_headlines(pages=5):
         driver.quit()
     
     # Scrape full articles
-    for link in links:
-        print(link)
-        articles.append(scrape_article(link))
+    print(dates)
+    for link in range(len(links)):
+        print(links[link])
+        articles.append(scrape_article(links[link]))
+        # save to csv
+        with open('headlines.csv', 'a', newline='', encoding='utf-8') as file:
+             writer = csv.writer(file)
+             writer.writerow(['bbc', headlines[link], dates[link], links[link], articles[link]])
+
     
     return headlines, dates, links, articles
 
@@ -99,9 +105,9 @@ def save_to_csv(headlines, dates, links, articles):
             writer.writerow(['bbc', headline, date, link, article])
 
 if __name__ == "__main__":
-    headlines, dates, links, articles = fetch_bbc_headlines(pages=1)
+    headlines, dates, links, articles = fetch_bbc_headlines(pages=15)
     save_to_csv(headlines, dates, links, articles)
     
     # Print the results for verification
-    for i in range(len(headlines)):
-        print(f"Headline: {headlines[i]}, Date: {dates[i]}, Link: {links[i]}, Article: {articles[i][:100]}...")
+    # for i in range(len(headlines)):
+    #     print(f"Headline: {headlines[i]}, Date: {dates[i]}, Link: {links[i]}, Article: {articles[i][:100]}...")
