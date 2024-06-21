@@ -38,6 +38,9 @@ def preprocess_headlines(input_file, output_file):
     # Remove rows with null or empty headlines
     df = df[df['Article'].notna() & df['Article'].str.strip().astype(bool)]
     
+    # Drop duplicate headlines
+    df = df.drop_duplicates(subset='Headline')
+    
     # Preprocess each Article
     df['Processed_Article'] = df['Article'].apply(preprocess_text)
     
