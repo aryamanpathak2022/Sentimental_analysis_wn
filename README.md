@@ -23,10 +23,6 @@
 - [Company-wise Sentiment Analysis](#company-wise-sentiment-analysis)
 - [Main Topics Using LDA](#main-topics-using-lda)
 - [Clustering Visualization](#clustering-visualization)
-- [Methods and Tools Used](#methods-and-tools-used)
-  - [VADER](#vader)
-  - [TextBlob](#textblob)
-  - [Flair](#flair)
 - [Data Source](#data-source)
 
 
@@ -193,21 +189,7 @@ The sentiment data was clustered using dimensionality reduction techniques and v
 
 ![Clustering Visualization in 2D](clusters.png)
 
-## Methods and Tools Used
 
-This analysis utilized an ensemble method combining the sentiment analysis tools VADER, TextBlob, and Flair to achieve robust sentiment classification. 
-
-### VADER
-
-The VADER (Valence Aware Dictionary and sEntiment Reasoner) tool is a lexicon and rule-based sentiment analysis tool specifically attuned to sentiments expressed in social media.
-
-### TextBlob
-
-TextBlob is a simple Python library for processing textual data, providing a consistent API for diving into common natural language processing (NLP) tasks.
-
-### Flair
-
-Flair is a powerful NLP library developed by Zalando Research, capable of performing a wide range of NLP tasks, including named entity recognition (NER), part-of-speech tagging (POS), and sentiment analysis.
 
 ## Data Source
 
