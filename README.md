@@ -19,7 +19,6 @@
   - [Analysis Tools](#analysis-tools)
   - [Visualization & Reporting Tools](#visualization--reporting-tools)
 - [Dataset](#dataset)
-- [Introduction](#introduction)
 - [Overall Sentiment Distribution](#overall-sentiment-distribution)
 - [Company-wise Sentiment Analysis](#company-wise-sentiment-analysis)
 - [Main Topics Using LDA](#main-topics-using-lda)
