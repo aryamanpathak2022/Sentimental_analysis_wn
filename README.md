@@ -1,6 +1,9 @@
 # Project Goals and Plan
 
+# Sentiment Analysis of Western News about India
+
 ## Table of Contents
+
 - [Problem Statement](#problem-statement)
 - [System Model / Architecture](#system-model--architecture)
   - [Data Sources](#data-sources)
@@ -16,7 +19,19 @@
   - [Analysis Tools](#analysis-tools)
   - [Visualization & Reporting Tools](#visualization--reporting-tools)
 - [Dataset](#dataset)
-- [Analysis and Expected Outcome](#analysis-and-expected-outcome)
+- [Introduction](#introduction)
+- [Overall Sentiment Distribution](#overall-sentiment-distribution)
+- [Company-wise Sentiment Analysis](#company-wise-sentiment-analysis)
+- [Main Topics Using LDA](#main-topics-using-lda)
+- [Clustering Visualization](#clustering-visualization)
+- [Methods and Tools Used](#methods-and-tools-used)
+  - [VADER](#vader)
+  - [TextBlob](#textblob)
+  - [Flair](#flair)
+- [Data Source](#data-source)
+
+
+
 
 ## Problem Statement
 
