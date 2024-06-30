@@ -4,6 +4,7 @@ from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.decomposition import NMF
 from sklearn.decomposition import SparsePCA 
 from sklearn.decomposition import TruncatedSVD  
+
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
 from afinn import Afinn
@@ -22,17 +23,17 @@ features = vectorizer.fit_transform(texts)
 
 
 # LDA
-# num_topics = 20  # Adjust num_topics based on domain and desired granularity
-# lda = LatentDirichletAllocation(n_components=num_topics, random_state=42)
-# # print words in lda
-# lda.fit(features)
-# for i, topic in enumerate(lda.components_):
-#     print(f"Top words for topic #{i}:")
-#     print([vectorizer.get_feature_names_out()[i] for i in topic.argsort()[-5:]])
-#     print("\n")
-# topic_distributions = lda.fit_transform(features)
+num_topics = 20  # Adjust num_topics based on domain and desired granularity
+lda = LatentDirichletAllocation(n_components=num_topics, random_state=42)
+# print words in lda
+lda.fit(features)
+for i, topic in enumerate(lda.components_):
+    print(f"Top words for topic #{i}:")
+    print([vectorizer.get_feature_names_out()[i] for i in topic.argsort()[-5:]])
+    print("\n")
+topic_distributions = lda.fit_transform(features)
 # Convert TF-IDF features to dense array
-# features_dense = features.toarray()
+features_dense = features.toarray()
 
 # # Sparse PCA
 # num_topics = 20  # Adjust num_topics based on domain and desired granularity
@@ -40,9 +41,9 @@ features = vectorizer.fit_transform(texts)
 # topic_distributions = sparse_pca.fit_transform(features_dense)
 
 # TruncatedSVD
-num_topics = 20  # Adjust num_topics based on domain and desired granularity
-svd = TruncatedSVD(n_components=num_topics, random_state=42)
-topic_distributions = svd.fit_transform(features)
+# num_topics = 20  # Adjust num_topics based on domain and desired granularity
+# svd = TruncatedSVD(n_components=num_topics, random_state=42)
+# topic_distributions = svd.fit_transform(features)
 
 
 # KMeans
