@@ -151,17 +151,50 @@ The dataset for this project will consist of multiple types of data sources, eac
 - **Web Scraping:** Use Scrapy to scrape articles from the websites of the specified news sources.
 - **APIs:** Where available, use news APIs to collect articles.
 
-## Analysis and Expected Outcome
+## Overall Sentiment Distribution
 
-### Analysis
+The overall sentiment distribution in the dataset is visualized in the bar chart and pie chart below.
 
-After performing sentiment analysis on the dataset of Western news articles about India, the subsequent steps involve data visualization, detailed interpretation, and deriving meaningful insights. The key components of this analysis are as follows:
+![Overall Sentiment Distribution - Bar Chart](bar.png)
 
-#### Data Visualization
+![Overall Sentiment Distribution - Pie Chart](pie.png)
 
-Visualizing the sentiment analysis results is crucial for understanding the data patterns and trends. We will employ various visualization techniques to present the data effectively:
+## Company-wise Sentiment Analysis
 
-- **Sentiment Distribution:** Use bar charts and pie charts to show the overall distribution of positive, negative, and neutral sentiments across the entire dataset.
-- **Time Series Analysis:** Create line graphs to depict sentiment trends over time. This helps in identifying how sentiment changes in response to major events and developments related to India.
-- **Source-Specific Sentiment:** Implement comparative bar charts to show sentiment differences among various Western news outlets, highlighting any noticeable biases.
-- **Word Clouds:** Generate word clouds for positive, negative, and neutral sentiment categories to highlight the most frequently used words and phrases associated with each sentiment.
+The sentiment distribution for each news company is analyzed and visualized in the following bar charts and pie charts.
+
+![Sentiment Distribution for Company A - Bar Chart](company.png)
+
+## Main Topics Using LDA
+
+The main topics in the dataset were identified using Latent Dirichlet Allocation (LDA). The word clouds below illustrate the key topics.
+
+![Main Topics Using LDA - Word Cloud 1](topics_1.png)
+
+![Main Topics Using LDA - Word Cloud 2](topics_2.png)
+
+## Clustering Visualization
+
+The sentiment data was clustered using dimensionality reduction techniques and visualized in a 2D plot using Kmeans.
+
+![Clustering Visualization in 2D](clusters.png)
+
+## Methods and Tools Used
+
+This analysis utilized an ensemble method combining the sentiment analysis tools VADER, TextBlob, and Flair to achieve robust sentiment classification. 
+
+### VADER
+
+The VADER (Valence Aware Dictionary and sEntiment Reasoner) tool is a lexicon and rule-based sentiment analysis tool specifically attuned to sentiments expressed in social media.
+
+### TextBlob
+
+TextBlob is a simple Python library for processing textual data, providing a consistent API for diving into common natural language processing (NLP) tasks.
+
+### Flair
+
+Flair is a powerful NLP library developed by Zalando Research, capable of performing a wide range of NLP tasks, including named entity recognition (NER), part-of-speech tagging (POS), and sentiment analysis.
+
+## Data Source
+
+The dataset used in this analysis is available for download [here](https://www.kaggle.com/datasets/aryamanpathak/western-news-about-india/). It consists of news articles from various Western media outlets, categorized by company.
